@@ -27,6 +27,7 @@ def time_view(request):
 
     current_time = datetime.now().strftime("%H:%M")
     msg = f'Текущее время: {current_time}'
+    pana=Pana
     return HttpResponse(msg)
 
 
