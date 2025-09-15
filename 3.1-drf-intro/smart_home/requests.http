@@ -14,7 +14,7 @@ Content-Type: application/json
 
 {
   "name": "ESP32",
-  "description": "Датчик на кухне за холодильником"
+  "description": "Датчик в спальне"
 }
 
 ###
@@ -34,8 +34,8 @@ POST {{baseUrl}}/measurements/
 Content-Type: application/json
 
 {
-  "sensor": 1,
-  "temperature": 22.3
+  "sensor": 3,
+  "temperature": 27.7
 }
 
 ###
