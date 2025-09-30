@@ -1,6 +1,6 @@
 # примеры API-запросов
 
-@baseUrl = https://localhost:8000/api
+@baseUrl = http://localhost:8000/api
 
 # получение объявлений
 GET {{baseUrl}}/advertisements/
@@ -8,35 +8,81 @@ Content-Type: application/json
 
 ###
 
-# создание объявления
+# получение объявлений авторизованным пользователем
+GET {{baseUrl}}/advertisements/
+Content-Type: application/json
+Authorization: Token 26c289b1608d9535e0dd59352d60769c73e57fd6
+
+###
+
+# создание объявления пользователем 1
 POST {{baseUrl}}/advertisements/
 Content-Type: application/json
-Authorization: Token 902ef055a9ac93f18327f1f9c45ab059f1a62c7d
+Authorization: Token 26c289b1608d9535e0dd59352d60769c73e57fd6
 
 {
-  "title": "Шкаф IKEA",
+  "title": "Шкаф IKEA-12",
+  "description": "Срочно-12"
+}
+
+###
+
+# создание объявления пользователем 2
+POST {{baseUrl}}/advertisements/
+Content-Type: application/json
+Authorization: Token 1d7f327aa5d88a68862f55acba3572036b46821b
+
+{
+  "title": "Шкаф IKEA-22",
+  "description": "Срочно продам"
+}
+
+###
+
+# создание объявления неавторизованным пользователем
+POST {{baseUrl}}/advertisements/
+Content-Type: application/json
+
+{
+  "title": "Шкаф IKEA-13",
   "description": "Срочно"
 }
 
 ###
 
 # попытка поменять объявление
-PATCH {{baseUrl}}/advertisements/1/
+PATCH {{baseUrl}}/advertisements/3/
 Content-Type: application/json
-Authorization: Token 902ef055a9ac93f18327f1f9c45ab059f1a62c7d
+Authorization: Token 26c289b1608d9535e0dd59352d60769c73e57fd6
 
 {
-  "status": "CLOSED"
+  "status": "DRAFT"
+}
+
+###
+
+# попытка поменять объявление не авториз
+PATCH {{baseUrl}}/advertisements/2/
+Content-Type: application/json
+
+{
+  "status": "DRAFT"
 }
 
 ###
 
 # фильтрация по создателю
-GET {{baseUrl}}/advertisements/?creator=3
+GET {{baseUrl}}/advertisements/?creator=2
 Content-Type: application/json
 
 ###
 
 # фильтрация по дате
-GET {{baseUrl}}/advertisements/?created_at_before=2020-10-01
+GET {{baseUrl}}/advertisements/?created_at_after=2025-09-28
+Content-Type: application/json
+
+###
+
+# фильтрация по статусу
+GET {{baseUrl}}/advertisements/?status=CLOSED
 Content-Type: application/json
